@@ -65,6 +65,11 @@ function get_users(){
 function get_last_msg($userid){
     $msg = Message::where('user_id', $userid)->latest()->first();
 
+    if(is_null($msg))
+    {
+        return "new meassage";
+    }
+
     return mb_strimwidth($msg->message, 0, 20, "...");
 }
 
