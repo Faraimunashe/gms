@@ -2,9 +2,11 @@
 
 use App\Models\Barcode;
 use App\Models\Cart;
+use App\Models\Message;
 use App\Models\Product;
 use App\Models\SoldItem;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 function count_sold_items($sales_id){
@@ -54,4 +56,18 @@ function cart_magic($product_id){
     }
 
     return 0;
+}
+
+function get_users(){
+    return User::where('id', '!=', Auth::id())->where('id', '!=', 1)->get();
+}
+
+function get_last_msg($userid){
+    $msg = Message::where('user_id', $userid)->latest()->first();
+
+    return mb_strimwidth($msg->message, 0, 20, "...");
+}
+
+function get_user($user_id){
+    return User::find($user_id);
 }

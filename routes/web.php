@@ -34,6 +34,9 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin/sale/{id}', 'App\Http\Controllers\admin\SaleController@items')->name('admin-sale');
 
     Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@index')->name('admin-users');
+
+    Route::get('/admin/message/{userid}', 'App\Http\Controllers\admin\MessageController@index')->name('admin-messages');
+    Route::post('/admin/send', 'App\Http\Controllers\admin\MessageController@send')->name('admin-send');
 });
 
 Route::group(['middleware' => ['auth', 'role:user']], function () {
@@ -47,6 +50,9 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
 
     Route::get('/product/check', 'App\Http\Controllers\user\SaleController@check')->name('user-checks');
     Route::post('/product/search', 'App\Http\Controllers\user\SaleController@verify')->name('user-check-search');
+
+    Route::get('/message', 'App\Http\Controllers\user\MessageController@index')->name('user-messages');
+    Route::post('/send', 'App\Http\Controllers\user\MessageController@send')->name('user-send');
 });
 
 require __DIR__.'/auth.php';

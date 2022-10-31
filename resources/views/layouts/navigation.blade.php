@@ -6,54 +6,41 @@
                     <li class="nav-item ms-0 me-5 d-lg-flex d-none">
                         <a href="#" class="nav-link horizontal-nav-left-menu"><i class="mdi mdi-format-list-bulleted"></i></a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-bs-toggle="dropdown">
-                            <i class="mdi mdi-email mx-0"></i>
-                            <span class="count bg-primary">4</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                            <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-                            <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="images/faces/face4.jpg" alt="image" class="profile-pic">
-                            </div>
-                            <div class="preview-item-content flex-grow">
-                                <h6 class="preview-subject ellipsis font-weight-normal">David Grey
-                                </h6>
-                                <p class="font-weight-light small-text text-muted mb-0">
-                                    The meeting is cancelled
-                                </p>
-                            </div>
+                    @if (Auth::user()->hasRole('admin'))
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-bs-toggle="dropdown">
+                                <i class="mdi mdi-email mx-0"></i>
+                                <span class="count bg-primary">4</span>
                             </a>
-                            <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="images/faces/face2.jpg" alt="image" class="profile-pic">
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                                @foreach (get_users() as $user)
+                                    <a class="dropdown-item preview-item" href="#">
+                                        <div class="preview-thumbnail">
+                                            <img src="{{asset('assets/images/faces/face4.jpg')}}" alt="image" class="profile-pic">
+                                        </div>
+                                        <div class="preview-item-content flex-grow">
+                                            <h6 class="preview-subject ellipsis font-weight-normal">{{$user->name}}
+                                            </h6>
+                                            <p class="font-weight-light small-text text-muted mb-0">
+                                                {{get_last_msg($user->id)}}
+                                            </p>
+                                        </div>
+                                    </a>
+                                @endforeach
                             </div>
-                            <div class="preview-item-content flex-grow">
-                                <h6 class="preview-subject ellipsis font-weight-normal">Tim Cook
-                                </h6>
-                                <p class="font-weight-light small-text text-muted mb-0">
-                                    New product launch
-                                </p>
-                            </div>
+                        </li>
+                    @else
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator d-flex justify-content-center align-items-center"  href="{{route('user-messages')}}">
+                                <i class="mdi mdi-email mx-0"></i>
                             </a>
-                            <a class="dropdown-item preview-item">
-                            <div class="preview-thumbnail">
-                                <img src="images/faces/face3.jpg" alt="image" class="profile-pic">
-                            </div>
-                            <div class="preview-item-content flex-grow">
-                                <h6 class="preview-subject ellipsis font-weight-normal"> Johnson
-                                </h6>
-                                <p class="font-weight-light small-text text-muted mb-0">
-                                    Upcoming board meeting
-                                </p>
-                            </div>
-                            </a>
-                        </div>
-                    </li>
+                        </li>
+                    @endif
                 </ul>
                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo" href="{{route('dashboard')}}"><img src="{{asset('assets/images/logo.svg')}}" alt="logo"/></a>
+                    <a class="navbar-brand brand-logo" href="{{route('dashboard')}}"><img src="{{asset('assets/images/pnp-removebg-preview.png')}}" alt="logo"/></a>
                     <a class="navbar-brand brand-logo-mini" href="{{route('dashboard')}}"><img src="{{asset('assets/images/logo-mini.svg')}}" alt="logo"/></a>
                 </div>
                 <ul class="navbar-nav navbar-nav-right">
@@ -62,9 +49,6 @@
                             <button type="button" class="btn btn-inverse-primary btn-sm">Products </button>
                         </li>
                         <li class="nav-item dropdown d-lg-flex d-none">
-                            <a class="dropdown-toggle show-dropdown-arrow btn btn-inverse-primary btn-sm" id="nreportDropdown" href="#" data-bs-toggle="dropdown">
-                                Reports
-                            </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="nreportDropdown">
                                 <p class="mb-0 font-weight-medium float-left dropdown-header">Reports</p>
                                 <a class="dropdown-item">

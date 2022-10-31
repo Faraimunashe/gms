@@ -16,6 +16,7 @@
                             <th>Email</th>
                             <th>Role</th>
                             <th>Created At</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,6 +42,11 @@
                                 </td>
                                 <td>
                                     {{$item->created_at}}
+                                </td>
+                                <td>
+                                    <a href="{{route('admin-messages', $item->id)}}">
+                                        Chat
+                                    </a>
                                 </td>
                             </tr>
                         @endforeach
