@@ -3,29 +3,22 @@
         <div class="col-lg-12 grid-margin stretch-card">
             <div class="card">
               <div class="card-body">
-                <h4 class="card-title">Available Products</h4>
-                <p class="card-description">
-                    Add class <code>.table-striped</code>
-                    <a href="{{route('admin-new-product')}}" class="btn btn-success" style="float: right;">
-                        Add New
-                    </a>
-                </p>
+                <h4 class="card-title">Sale #{{$saleid}} Items</h4>
                 <div class="table-responsive">
                   <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>#</th>
+                            <th>Code</th>
                             <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Unit-Price</th>
-                            <th>Action</th>
+                            <th>Price</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
                             $count = 0;
                         @endphp
-                        @foreach ($products as $item)
+                        @foreach ($items as $item)
                             <tr>
                                 <td class="py-1">
                                     @php
@@ -34,30 +27,23 @@
                                     @endphp
                                 </td>
                                 <td>
+                                    {{$item->code}}
+                                </td>
+                                <td>
                                     {{$item->name}}
                                 </td>
                                 <td>
-                                    <a href="{{route('admin-product', $item->id)}}"> {{$item->qty}} </a>
-                                </td>
-                                <td>
                                     {{$item->price}}
-                                </td>
-                                <td>
-                                    <a href="{{route('admin-update-product', $item->id)}}" class="btn btn-inverse-primary">
-                                        Update
-                                    </a>
-                                    <a onclick="confirm('We are about to delete {{$item->name}}!');" href="{{route('admin-delete-product', $item->id)}}" class="btn btn-inverse-danger">
-                                        Delete
-                                    </a>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                   </table>
                 </div>
-                {{$products->links('pagination::bootstrap-4')}}
+                {{$items->links('pagination::bootstrap-4')}}
               </div>
             </div>
         </div>
     </div>
+    <!-- Button trigger modal -->
 </x-app-layout>

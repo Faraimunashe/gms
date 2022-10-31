@@ -139,4 +139,14 @@ class ProductController extends Controller
             return $code;
         }
     }
+
+    public function items($productid)
+    {
+        $items = Barcode::where('product_id', $productid)->paginate(10);
+
+        return view('admin.available-item', [
+            'items' => $items,
+            'productid' => $productid
+        ]);
+    }
 }

@@ -37,7 +37,7 @@
                                     {{$item->amount}}
                                 </td>
                                 <td>
-                                    {{count_sold_items($item->id)}}
+                                    <a href="{{route('admin-sale', $item->id)}}">{{count_sold_items($item->id)}}</a>
                                 </td>
                                 <td>
                                     {{get_teller($item->user_id)}}

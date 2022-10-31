@@ -28,8 +28,10 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::post('/admin/add-product', 'App\Http\Controllers\admin\ProductController@add')->name('admin-add-product');
     Route::post('/admin/edit-product', 'App\Http\Controllers\admin\ProductController@edit')->name('admin-edit-product');
     Route::get('/admin/delete-product/{id}', 'App\Http\Controllers\admin\ProductController@delete')->name('admin-delete-product');
+    Route::get('/admin/product/{id}', 'App\Http\Controllers\admin\ProductController@items')->name('admin-product');
 
     Route::get('/admin/sales', 'App\Http\Controllers\admin\SaleController@index')->name('admin-sales');
+    Route::get('/admin/sale/{id}', 'App\Http\Controllers\admin\SaleController@items')->name('admin-sale');
 
     Route::get('/admin/users', 'App\Http\Controllers\admin\UserController@index')->name('admin-users');
 });
@@ -41,9 +43,10 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     Route::get('/user/add/{id}', 'App\Http\Controllers\user\CartController@add')->name('user-add-cart');
 
     Route::get('/user/sales', 'App\Http\Controllers\user\SaleController@index')->name('user-sales');
+    Route::get('/user/sale/{id}', 'App\Http\Controllers\user\SaleController@items')->name('user-items');
 
     Route::get('/product/check', 'App\Http\Controllers\user\SaleController@check')->name('user-checks');
-    Route::post('/product/search', 'App\Http\Controllers\user\SaleController@search')->name('user-check-serach');
+    Route::post('/product/search', 'App\Http\Controllers\user\SaleController@verify')->name('user-check-search');
 });
 
 require __DIR__.'/auth.php';

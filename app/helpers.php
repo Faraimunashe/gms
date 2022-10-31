@@ -32,6 +32,12 @@ function get_product($barcode_id){
     return $product;
 }
 
+function get_product_by_id($product_id){
+    $product = Product::find($product_id);
+
+    return $product;
+}
+
 function get_barcode($barcode_id){
     $barcode = Barcode::find($barcode_id);
     return $barcode;
