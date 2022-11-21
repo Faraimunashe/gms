@@ -88,18 +88,22 @@
                                     $total = 0;
                                 @endphp
                                 @foreach ($cart as $item)
-                                    <tr>
-                                        <td>
-                                            @php
-                                                $product = get_product($item->barcode_id);
-                                                $total = $total + $product->price;
-                                                $count++;
-                                                echo $count;
-                                            @endphp
-                                        </td>
-                                        <td>{{$product->name}} x 1</td>
-                                        <td class="text-danger">${{$product->price}}</td>
-                                    </tr>
+
+                                        <tr>
+
+                                            <td>
+                                                @php
+                                                    $product = get_product($item->barcode_id);
+                                                    $total = $total + $product->price;
+                                                    $count++;
+                                                    echo $count;
+                                                @endphp
+                                            </td>
+                                            <td>{{$product->name}} x 1</td>
+                                            <td class="text-danger"><a href="{{route('user-delete-cart', $item->id)}}">${{$product->price}}</a></td>
+
+                                        </tr>
+
                                 @endforeach
                             </tbody>
                         </table>

@@ -16,8 +16,12 @@ class CartController extends Controller
     public function checkout(Request $request)
     {
         $request->validate([
-            'amount' => ['required', 'numeric']
+            'amount' => ['required', 'numeric', 'min:0']
         ]);
+
+        if($request->amount < 1){
+            return redirect()->back()->with('error', 'Cannot checkout, cart is empty.');
+        }
 
         $cart = Cart::where('user_id', Auth::id())->get();
 
@@ -84,6 +88,28 @@ class CartController extends Controller
             }
         }else{
             return redirect()->back()->with('error', 'Sorry product out of stock');
+        }
+    }
+
+    public function delete($cart_id)
+    {
+        try{
+            $cart = Cart::find($cart_id);
+            if(is_null($cart)){
+                return redirect()->back()->with('error', 'Cannot locate specified cart');
+            }
+
+            $product = get_product($cart->barcode_id); //barcode_id
+
+            $cart->delete();
+
+            $product->qty = $product->qty + 1;
+            $product->save();
+
+            return redirect()->back()->with('success', 'Product moved from cart');
+        }catch(Exception $e)
+        {
+            return redirect()->back()->with('error', 'ERROR: '.$e->getMessage());
         }
     }
 }

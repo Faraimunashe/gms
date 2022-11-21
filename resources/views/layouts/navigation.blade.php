@@ -120,6 +120,12 @@
                             <span class="menu-title">Users</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('admin-account')}}">
+                            <i class="mdi mdi-account menu-icon"></i>
+                            <span class="menu-title">Accounts</span>
+                        </a>
+                    </li>
                 @elseif (Auth::user()->hasRole('user'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('user-dashboard')}}">

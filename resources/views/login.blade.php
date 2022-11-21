@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <h6 class="font-weight-light">Login as user to continue.</h6>
+    <h6 class="font-weight-light">Login as admin here.</h6>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -25,8 +25,8 @@
                     </button>
                 </div>
                 <div class="col-md-6">
-                    <a href="/admin-login" class="btn btn-block btn-dark btn-lg font-weight-medium auth-form-btn">
-                        Admin
+                    <a href="/login" class="btn btn-block btn-dark btn-lg font-weight-medium auth-form-btn">
+                        User
                     </a>
                 </div>
             </div>

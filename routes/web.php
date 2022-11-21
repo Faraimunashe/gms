@@ -17,10 +17,17 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('/admin-login', function () {
+    return view('login');
+});
+
 Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->middleware(['auth'])->name('dashboard');
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/admin/dashboard', 'App\Http\Controllers\admin\DashboardController@index')->name('admin-dashboard');
+
+    Route::get('/admin/account', 'App\Http\Controllers\admin\AccountController@index')->name('admin-account');
+    Route::post('/admin/add-account', 'App\Http\Controllers\admin\AccountController@add')->name('admin-add-account');
 
     Route::get('/admin/products', 'App\Http\Controllers\admin\ProductController@index')->name('admin-products');
     Route::get('/admin/new-product', 'App\Http\Controllers\admin\ProductController@new')->name('admin-new-product');
@@ -52,6 +59,7 @@ Route::group(['middleware' => ['auth', 'role:user']], function () {
     Route::post('/product/search', 'App\Http\Controllers\user\SaleController@verify')->name('user-check-search');
 
     Route::get('/message', 'App\Http\Controllers\user\MessageController@index')->name('user-messages');
+    //Route::get('/delete', 'App\Http\Controllers\user\SaleController@index')->name('user-messages');
     Route::post('/send', 'App\Http\Controllers\user\MessageController@send')->name('user-send');
 });
 
